@@ -1,0 +1,30 @@
+package com.example.service1;
+
+import java.util.List;
+
+import javax.websocket.server.PathParam;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.example.service1.valueObjects.ResponseTemplateVo;
+
+@Service
+public class UserService {
+
+	@Autowired
+	private UserRepository repo;
+	
+	public List<User> getUsers(){
+		return repo.getList();
+	}
+
+	@GetMapping("/user/{id}")
+	public ResponseTemplateVo getUserWithDepartment(@PathVariable("id") String name) {
+		ResponseTemplateVo responseTemplateVo=new ResponseTemplateVo();
+		
+		return null;
+	}
+}

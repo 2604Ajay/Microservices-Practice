@@ -1,0 +1,25 @@
+package com.example.service1;
+
+import java.util.Arrays;
+import java.util.List;
+
+@org.springframework.stereotype.Repository
+public class DepartmentRepository {
+
+	List<Department> list=Arrays.asList(
+			new Department(1L, "Mech"),
+			new Department(2L, "Com"),
+			new Department(3L, "Civil"),
+			new Department(4L, "Extc")
+			);
+
+	public List<Department> getList() {
+		return list;
+	}
+
+	public void setList(List<Department> list) {
+		this.list = list;
+	}
+	
+	
+}

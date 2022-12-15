@@ -1,0 +1,5 @@
+server.port=8100
+spring.application.name=DepartmentService
+
+eureka.client.register-with-eureka:true
+eureka.client.fetch-registry:true

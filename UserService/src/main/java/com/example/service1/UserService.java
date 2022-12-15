@@ -1,0 +1,54 @@
+package com.example.service1;
+
+import java.net.URI;
+import java.util.List;
+
+import javax.websocket.server.PathParam;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.client.RestTemplate;
+
+import com.example.service1.valueObjects.Department;
+import com.example.service1.valueObjects.ResponseTemplateVo;
+
+@Service
+public class UserService {
+
+	Logger logger = LoggerFactory.getLogger(UserService.class);
+
+	@Autowired
+	private UserRepository repo;
+
+	@Autowired
+	private RestTemplate template;
+	
+	
+	
+	public List<User> getUsers() {
+		return repo.getList();
+	}
+
+	public User getUser(String name) {
+		return repo.getList().stream().filter(i -> i.getName().equals(name)).findAny().get();
+	}
+
+	public ResponseTemplateVo getUserWithDepartment(String name) {
+		logger.info("Inside User Service getUser with department method");
+		ResponseTemplateVo responseTemplateVo = new ResponseTemplateVo();
+		User user = getUser(name);
+		
+		String url = "http://API-GATEWAY/department/get/" + user.getDepartmentID();
+		Department department = template.getForObject(url, Department.class);
+		responseTemplateVo.setUser(user);
+		responseTemplateVo.setDepartment(department);
+		
+		return responseTemplateVo;
+	}
+}

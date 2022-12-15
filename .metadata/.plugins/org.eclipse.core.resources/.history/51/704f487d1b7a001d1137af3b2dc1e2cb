@@ -1,0 +1,6 @@
+package com.example.service1;
+
+@Configuration
+public class APIConfiguration {
+
+}
